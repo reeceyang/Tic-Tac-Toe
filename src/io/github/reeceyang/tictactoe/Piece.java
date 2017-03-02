@@ -1,27 +1,3 @@
-/*//Ben Schroeder
-//
-//Piece Class
-
-package U7A3;
-
-public class Piece
-{
-	private String pieceType;
-
-	public Piece(String player)
-	{
-		if(player.equals("p1"))
-			pieceType = "X";
-		else if(player.equals("p2"))
-			pieceType = "O";
-	}
-
-	public String getPiece()
-	{
-		return pieceType;
-	}
-}
-*/
 package io.github.reeceyang.tictactoe;
 
 public class Piece {
@@ -55,7 +31,7 @@ public class Piece {
     public static Piece negate(Piece piece) {
         if (piece.equals(Piece.X)) {
             return Piece.O;
-        } else if (piece.equals(O)){
+        } else if (piece.equals(O)) {
             return Piece.X;
         }
         return Piece.EMPTY;

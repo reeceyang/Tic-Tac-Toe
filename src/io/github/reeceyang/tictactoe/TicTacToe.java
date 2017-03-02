@@ -1,7 +1,3 @@
-// Reece Yang
-//
-// This is a Tic-Tac-Toe game.
-
 package io.github.reeceyang.tictactoe;
 
 import javax.swing.JButton;
