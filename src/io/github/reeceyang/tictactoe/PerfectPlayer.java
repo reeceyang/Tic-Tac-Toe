@@ -1,27 +1,27 @@
 package io.github.reeceyang.tictactoe;
 
-public class PerfectPlayer {
+public class PerfectPlayer extends Player {
 
     private Piece me;
     private Board board;
-    private int[] choice;
+    private Position choice;
 
     public PerfectPlayer(Piece me, Board board) {
-        this.me = me;
-        this.board = board;
+        super(me, board);
     }
+
 
     public int minimax(Board board) {
         if (board.isEndPosition()) {
             return board.score();
         }
         int[] scores = new int[board.getNonEmptyPieces()];
-        int[][] moves = new int[board.getNonEmptyPieces()][2];
+        Position[] moves = new Position[board.getNonEmptyPieces()];
 
         Piece mover = board.getTurnPiece();
         int iteration = 0;
-        for (int[] move : board.getAvailableMoves()) {
-            Board possibleBoard = board.getState(move[0], move[1], mover);
+        for (Position move : board.getAvailableMoves()) {
+            Board possibleBoard = board.getState(move, mover);
             scores[iteration] = minimax(possibleBoard);
             moves[iteration] = move;
         }
@@ -37,7 +37,7 @@ public class PerfectPlayer {
         }
     }
 
-    public int[] getChoice() {
+    public Position getChoice() {
         return choice;
     }
 

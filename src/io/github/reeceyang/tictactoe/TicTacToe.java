@@ -83,7 +83,7 @@ public class TicTacToe extends JFrame {
                     // Set the clicked button's text to that piece
                     cells[index].setText(mover.toString());
                     // Place the piece in the corresponding cell on the board
-                    board.place(index / BOARD_LENGTH, index % BOARD_LENGTH, mover);
+                    board.place(new Position(index / BOARD_LENGTH, index % BOARD_LENGTH), mover);
                     System.out.println("Button clicked");
                     if (board.isEndPosition()) {
                         showGameOverDialog();
@@ -227,7 +227,7 @@ public class TicTacToe extends JFrame {
         if (onePlayerMode) {
             PerfectPlayer reeceYang = new PerfectPlayer(board.getTurnPiece(), board);
             reeceYang.minimax(board);
-            board.place(reeceYang.getChoice()[0], reeceYang.getChoice()[1], reeceYang.getMe());
+            board.place(reeceYang.getChoice(), reeceYang.getMe());
             refreshBoard();
             if (board.isEndPosition()) {
                 showGameOverDialog();
@@ -241,7 +241,7 @@ public class TicTacToe extends JFrame {
 
     private void refreshBoard() {
         for (int i = 0; i < BOARD_LENGTH * BOARD_LENGTH; i++) {
-            cells[i].setText(board.getPiece(i / BOARD_LENGTH, i % BOARD_LENGTH).toString());
+            cells[i].setText(board.getPiece(new Position(i / BOARD_LENGTH, i % BOARD_LENGTH)).toString());
         }
         System.out.println("Board refreshed");
         updateJumbotron();

@@ -20,18 +20,18 @@ public class Board {
         string = string.replace("\n", "");
         for (int i = 0; i < boardLength; i++) {
             for (int j = 0; j < boardLength; j++) {
-                pieces[i][j] = new Piece(string.charAt(i * boardLength + j) + "");
+                pieces[i][j] = Piece.valueOf(string.charAt(i * boardLength + j) + "");
             }
         }
     }
 
-    public void place(int row, int col, Piece piece) {
-        pieces[row][col] = piece;
+    public void place(Position position, Piece piece) {
+        pieces[position.getRow()][position.getCol()] = piece;
     }
 
-    public Board getState(int row, int col, Piece piece) {
+    public Board getState(Position position, Piece piece) {
         Board possibleBoard = new Board(this.toString(), this.boardLength, this.turn);
-        possibleBoard.place(row, col, piece);
+        possibleBoard.place(position, piece);
         possibleBoard.nextTurn();
         return possibleBoard;
     }
@@ -46,8 +46,8 @@ public class Board {
         turn = 1;
     }
 
-    public Piece getPiece(int row, int col) {
-        return pieces[row][col];
+    public Piece getPiece(Position position) {
+        return pieces[position.getRow()][position.getCol()];
     }
 
     public Piece[][] getPieces() {
@@ -108,7 +108,7 @@ public class Board {
         Piece player = getTurnPiece();
         if (checkForWin().equals(player)) {
             return 10;
-        } else if (checkForWin().equals(Piece.negate(player))) {
+        } else if (checkForWin().equals(player.negate())) {
             return -10;
         } else {
             return 0;
@@ -139,17 +139,13 @@ public class Board {
         return nonEmptyPieces;
     }
 
-    public int[][] getAvailableMoves() {
-        // availableMoves's structure
-        // Move Row Col
-        //  0    i   j
-        int[][] availableMoves = new int[boardLength * boardLength - getNonEmptyPieces()][2];
+    public Position[] getAvailableMoves() {
+        Position[] availableMoves = new Position[boardLength * boardLength - getNonEmptyPieces()];
         int index = 0;
         for (int i = 0; i < boardLength; i++) {
             for (int j = 0; j < boardLength; j++) {
                 if (pieces[i][j].equals(Piece.EMPTY)) {
-                    availableMoves[index][0] = i;
-                    availableMoves[index][1] = j;
+                    availableMoves[index] = new Position(i, j);
                     index++;
                 }
             }
