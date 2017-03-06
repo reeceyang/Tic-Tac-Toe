@@ -55,7 +55,6 @@ public class Board {
     }
 
     public Piece checkForWin() {
-        int winner = 0;
         // Horizontal
         for (int i = 0; i < boardLength; i++) {
             for (int j = 0; j < boardLength - 1; j++) {
@@ -63,45 +62,39 @@ public class Board {
                     break;
                 }
                 if (j + 1 == boardLength - 1) {
-                    winner += pieces[i][0].getType();
+                    return pieces[i][0];
                 }
             }
         }
         // Vertical
-        if (winner == 0) {
-            for (int i = 0; i < boardLength; i++) {
-                for (int j = 0; j < boardLength - 1; j++) {
-                    if (!pieces[j][i].equals(pieces[j + 1][i])) {
-                        break;
-                    }
-                    if (j + 1 == boardLength - 1) {
-                        winner += pieces[0][i].getType();
-                    }
+        for (int i = 0; i < boardLength; i++) {
+            for (int j = 0; j < boardLength - 1; j++) {
+                if (!pieces[j][i].equals(pieces[j + 1][i])) {
+                    break;
+                }
+                if (j + 1 == boardLength - 1) {
+                    return pieces[0][i];
                 }
             }
         }
         // Diagonals
-        if (winner == 0) {
-            for (int i = 0; i < boardLength - 1; i++) {
-                if (!pieces[i][i].equals(pieces[i + 1][i + 1])) {
-                    break;
-                }
-                if (i + 1 == boardLength - 1) {
-                    winner += pieces[0][0].getType();
-                }
+        for (int i = 0; i < boardLength - 1; i++) {
+            if (!pieces[i][i].equals(pieces[i + 1][i + 1])) {
+                break;
+            }
+            if (i + 1 == boardLength - 1) {
+                return pieces[0][0];
             }
         }
-        if (winner == 0) {
-            for (int i = 0; i < boardLength - 1; i++) {
-                if (!pieces[i][boardLength - 1 - i].equals(pieces[i + 1][boardLength - 2 - i])) {
-                    break;
-                }
-                if (i + 1 == boardLength - 1) {
-                    winner += pieces[0][boardLength - 1].getType();
-                }
+        for (int i = 0; i < boardLength - 1; i++) {
+            if (!pieces[i][boardLength - 1 - i].equals(pieces[i + 1][boardLength - 2 - i])) {
+                break;
+            }
+            if (i + 1 == boardLength - 1) {
+                return pieces[0][boardLength - 1];
             }
         }
-        return new Piece(winner);
+        return Piece.EMPTY;
     }
 
     public int score() {
