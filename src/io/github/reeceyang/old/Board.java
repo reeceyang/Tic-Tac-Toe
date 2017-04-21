@@ -1,4 +1,4 @@
-package io.github.reeceyang.tictactoe;
+package io.github.reeceyang.old;
 
 public class Board {
     private Piece[][] pieces;

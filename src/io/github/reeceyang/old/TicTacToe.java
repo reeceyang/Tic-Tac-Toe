@@ -1,4 +1,4 @@
-package io.github.reeceyang.tictactoe;
+package io.github.reeceyang.old;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;

@@ -1,4 +1,4 @@
-package io.github.reeceyang.tictactoe;
+package io.github.reeceyang.old;
 
 public class PerfectPlayer extends Player {
 
